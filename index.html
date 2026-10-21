@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABDSHOP – Вестник Бездны. Лаборатория GREAT ABYSS</title>
+<meta name="description" content="ABDSHOP, линейка GREAT ABYSS. Актуальная коллекция «Великая Бездна», архив изъятых коллекций, рассылка «Лабораторный диспетчер».">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   1. ТОКЕНЫ (см. DESIGN.md). Сырые значения только здесь.
+   ========================================================= */
+:root{
+  /* --- примитивы: цвет --- */
+  --color-paper:#E7E1D1;
+  --color-paper-2:#DCD5C2;
+  --color-paper-3:#F3EEDF;
+  --color-kraft:#CFC6B4;
+  --color-ink:#121212;
+  --color-ink-soft:#3A3835;
+  --color-red:#D3261F;
+  --color-red-dark:#A81914;
+  --color-blue:#1D3FA8;
+  --color-blue-dark:#142C7A;
+  --color-tape:rgba(214,190,140,.62);
+  --color-paper-ink:#F7F3E8;
+  --color-white:#FFFFFF;
+  --color-shadow-warm:rgba(60,45,20,.28);
+  --color-vignette:rgba(80,60,30,.22);
+  --color-photo-dark:#1A1A1A;
+  --color-photo-light:#4A4744;
+  --color-fold:rgba(18,18,18,.05);
+  --color-transparent:transparent;
+
+  /* --- семантика: цвет --- */
+  --color-bg:var(--color-paper);
+  --color-bg-alt:var(--color-paper-2);
+  --color-surface:var(--color-paper-3);
+  --color-surface-dark:var(--color-ink);
+  --color-text:var(--color-ink);
+  --color-text-muted:var(--color-ink-soft);
+  --color-text-inverse:var(--color-paper-ink);
+  --color-accent:var(--color-red);
+  --color-accent-text:var(--color-red-dark);
+  --color-link:var(--color-blue);
+  --color-link-hover:var(--color-blue-dark);
+  --color-focus:var(--color-blue);
+  --color-error:var(--color-red-dark);
+  --color-success:var(--color-blue);
+  --color-rule:var(--color-ink);
+
+  /* --- шрифты --- */
+  --font-display:"Playfair Display","Times New Roman",Georgia,serif;
+  --font-cond:"Oswald","Arial Narrow",Impact,sans-serif;
+  --font-text:"Old Standard TT","Times New Roman",Georgia,serif;
+  --font-mono:"IBM Plex Mono","Courier New",monospace;
+  --font-hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+
+  /* --- шкала текста --- */
+  --text-masthead:min(clamp(88px, 8px + 6.25vw, 128px), 10.4cqi);
+  --text-hero:clamp(96px, 8px + 6.875vw, 140px);
+  --text-h2:clamp(48px, 16px + 2.5vw, 64px);
+  --text-h3:clamp(24px, 12px + .9375vw, 30px);
+  --text-h4:20px;
+  --text-sub:clamp(19px, 13px + .47vw, 22px);
+  --text-quote:clamp(44px, 4px + 3.125vw, 64px);
+  --text-body:clamp(15px, 13px + .156vw, 16px);
+  --text-lead:18px;
+  --text-label:12px;
+  --text-label-sm:11px;
+  --text-btn:17px;
+  --text-btn-sm:14px;
+  --text-nav:15px;
+  --text-logo:22px;
+  --text-hand:clamp(22px, 13px + .7vw, 28px);
+  --text-stamp-s:16px;
+  --text-stamp-m:24px;
+  --text-stamp-l:40px;
+  --text-price:28px;
+  --text-price-l:44px;
+  --text-figure:clamp(56px, 16px + 3.125vw, 76px);
+  --text-dropcap:64px;
+  --text-ear:30px;
+  --text-step:44px;
+
+  --lh-tight:.9;
+  --lh-head:1.05;
+  --lh-snug:1.25;
+  --lh-sub:1.4;
+  --lh-body:1.6;
+
+  --track-label:.14em;
+  --track-btn:.18em;
+  --track-ticker:.24em;
+  --track-tagline:.42em;
+  --track-stamp:.1em;
+  --track-h2:.02em;
+  --track-hero:-.005em;
+
+  /* --- отступы --- */
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:16px;
+  --space-4:24px;
+  --space-5:32px;
+  --space-6:48px;
+  --space-7:72px;
+  --space-8:96px;
+
+  /* --- сетка --- */
+  --container:1380px;
+  --gutter:44px;
+  --col-hero-left:260px;
+  --col-hero-right:280px;
+  --ear-w:196px;
+  --nav-h:72px;
+  --nav-h-compact:56px;
+  --target:44px;
+  --btn-h:52px;
+  --measure:64ch;
+  --photo-hero-h:300px;
+
+  /* --- рамки, тени --- */
+  --border-hair:1px;
+  --border-base:1.5px;
+  --border-bold:3px;
+  --border-stamp:4px;
+  --border-underline:2px;
+  --radius:0;
+  --radius-round:50%;
+  --shadow-hard:6px 6px 0 var(--color-ink);
+  --shadow-hard-sm:3px 3px 0 var(--color-ink);
+  --shadow-none:0 0 0 var(--color-transparent);
+  --shadow-soft:0 6px 12px var(--color-shadow-warm);
+
+  /* --- эффекты --- */
+  --fx-grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .38  0 0 0 0 .3  0 0 0 .42 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --fx-grain-opacity:.5;
+  --fx-vignette:radial-gradient(ellipse at 50% 40%, var(--color-transparent) 55%, var(--color-vignette) 100%);
+  --fx-halftone-step:7px;
+  --fx-halftone:radial-gradient(circle, var(--color-ink) 52%, var(--color-transparent) 56%);
+  --fx-misreg:3px;
+  --fx-misreg-s:2px;
+  --fx-fold:linear-gradient(90deg, var(--color-transparent) 49.6%, var(--color-fold) 50%, var(--color-transparent) 50.4%), linear-gradient(0deg, var(--color-transparent) 62.6%, var(--color-fold) 63%, var(--color-transparent) 63.4%);
+  --fx-stamp-filter:url(#rough-stamp);
+  --fx-scrap-filter:url(#rough-scrap);
+
+  /* --- движение --- */
+  --dur-fast:120ms;
+  --dur-base:220ms;
+  --dur-slow:420ms;
+  --dur-stamp:280ms;
+  --dur-shake:240ms;
+  --dur-ticker:36s;
+  --dur-added:1500;
+  --ease-out:cubic-bezier(.2,.8,.2,1);
+  --ease-linear:linear;
+  --stagger:120ms;
+  --reveal-shift:24px;
+  --lift:-4px;
+  --press:3px;
+  --shake:3px;
+
+  /* --- компонентные токены --- */
+  --btn-primary-bg:var(--color-accent);
+  --btn-primary-text:var(--color-white);
+  --btn-cart-bg:var(--color-ink);
+  --btn-cart-text:var(--color-text-inverse);
+  --btn-cart-hover:var(--color-red-dark);
+  --card-bg:var(--color-surface);
+  --card-border:var(--border-base) solid var(--color-rule);
+  --stamp-scale:1;
+  --stamp-opacity:.9;
+  --stamp-round-d:168px;
+  --tag-rot:3deg;
+  --z-content:1;
+  --z-stamp:5;
+  --z-nav:80;
+  --z-grain:60;
+  --z-clean:70;
+  --z-skip:100;
+}
+
+/* =========================================================
+   2. БАЗА
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h-compact) + var(--space-4))}
+body{background:var(--color-bg);color:var(--color-text);font-family:var(--font-text);font-size:var(--text-body);line-height:var(--lh-body);overflow-x:clip;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:var(--z-grain);background-image:var(--fx-grain);mix-blend-mode:multiply;opacity:var(--fx-grain-opacity)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:var(--z-grain);background:var(--fx-vignette)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul,ol{list-style:none}
+:focus-visible{outline:var(--border-bold) solid var(--color-focus);outline-offset:var(--border-bold)}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.skip{position:absolute;left:var(--space-3);top:calc(var(--space-8) * -1);z-index:var(--z-skip);background:var(--color-ink);color:var(--color-text-inverse);font-family:var(--font-cond);font-size:var(--text-btn-sm);letter-spacing:var(--track-btn);text-transform:uppercase;padding:var(--space-3) var(--space-4)}
+.skip:focus{top:var(--space-3)}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.label{font-family:var(--font-mono);font-size:var(--text-label);font-weight:500;letter-spacing:var(--track-label);text-transform:uppercase;line-height:var(--lh-sub)}
+.label--sm{font-size:var(--text-label-sm);font-weight:400}
+.red-text{color:var(--color-accent-text)}
+.strike{text-decoration:line-through;text-decoration-color:var(--color-accent);text-decoration-thickness:var(--border-bold)}
+.section{padding:var(--space-8) 0}
+.section--alt{background:var(--color-bg-alt)}
+
+/* =========================================================
+   3. КОМПОНЕНТЫ
+   ========================================================= */
+
+/* --- 3.1 Штамп --- */
+.stamp{position:absolute;z-index:var(--z-stamp);display:inline-flex;align-items:center;justify-content:center;text-align:center;font-family:var(--font-cond);font-weight:700;text-transform:uppercase;letter-spacing:var(--track-stamp);line-height:var(--lh-head);white-space:nowrap;padding:var(--space-2) var(--space-4);color:var(--color-accent);mix-blend-mode:multiply;opacity:var(--stamp-opacity);transform:rotate(var(--rot,0deg)) scale(var(--stamp-scale));pointer-events:none;isolation:isolate}
+.stamp::before{content:"";position:absolute;inset:0;z-index:-1;border:var(--border-stamp) solid currentColor;filter:var(--fx-stamp-filter)}
+.stamp--blue{color:var(--color-blue)}
+.stamp--s{font-size:var(--text-stamp-s)}
+.stamp--m{font-size:var(--text-stamp-m)}
+.stamp--l{font-size:var(--text-stamp-l);padding:var(--space-2) var(--space-4) var(--space-1)}
+.stamp--round{width:var(--stamp-round-d);height:var(--stamp-round-d);border-radius:var(--radius-round);white-space:normal;padding:var(--space-5) var(--space-4);font-size:var(--text-stamp-s);line-height:var(--lh-snug)}
+.stamp--round::before{border-radius:var(--radius-round)}
+.stamp--round::after{content:"";position:absolute;inset:var(--space-2);z-index:-1;border:var(--border-base) solid currentColor;border-radius:var(--radius-round)}
+.stamp--on-dark{mix-blend-mode:normal}
+.stamp--on-dark::before{background:var(--color-paper)}
+.stamp--static{position:relative}
+.js .stamp[data-stamp]{opacity:0}
+.js .stamp[data-stamp].is-stamped{animation:stamp-in var(--dur-stamp) var(--ease-out) both;animation-delay:calc(var(--i,0) * var(--stagger))}
+@keyframes stamp-in{
+  from{opacity:0;transform:rotate(calc(var(--rot,0deg) - 6deg)) scale(calc(var(--stamp-scale) * 1.35))}
+  to{opacity:var(--stamp-opacity);transform:rotate(var(--rot,0deg)) scale(var(--stamp-scale))}
+}
+
+/* --- 3.2 Кнопки --- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-3);font-family:var(--font-cond);font-weight:700;text-transform:uppercase;letter-spacing:var(--track-btn);line-height:1;text-align:center;transition:transform var(--dur-base) var(--ease-out)}
+.btn--primary{min-height:var(--btn-h);padding:var(--space-3) var(--space-5);font-size:var(--text-btn);background:var(--btn-primary-bg);color:var(--btn-primary-text);border:var(--border-bold) solid var(--color-ink);box-shadow:var(--shadow-hard)}
+.btn--primary:hover{transform:translate(var(--press),var(--press));box-shadow:var(--shadow-hard-sm)}
+.btn--primary:active{transform:translate(calc(var(--press) * 2),calc(var(--press) * 2));box-shadow:var(--shadow-none)}
+.btn--primary:disabled,.btn--primary[aria-disabled="true"]{background:var(--color-kraft);color:var(--color-text-muted);box-shadow:var(--shadow-none);cursor:not-allowed;transform:none}
+.btn--cart{min-height:var(--target);width:100%;padding:var(--space-2) var(--space-4);font-size:var(--text-btn-sm);background:var(--btn-cart-bg);color:var(--btn-cart-text);transition:background-color var(--dur-fast) var(--ease-out)}
+.btn--cart:hover{background:var(--btn-cart-hover)}
+.btn--cart.is-added{background:var(--color-blue)}
+.btn--cart:disabled{background:var(--color-kraft);color:var(--color-text-muted);cursor:not-allowed}
+.btn--ghost{min-height:var(--btn-h);padding:var(--space-3) var(--space-5);font-size:var(--text-btn-sm);color:var(--color-text-inverse);border:var(--border-base) solid var(--color-text-inverse);transition:background-color var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out)}
+.btn--ghost:hover{background:var(--color-text-inverse);color:var(--color-text)}
+.btn--ghost:focus-visible{outline-color:var(--color-text-inverse)}
+.btn--small{min-height:var(--target);padding:var(--space-2) var(--space-3);font-size:var(--text-btn-sm);background:var(--color-ink);color:var(--color-text-inverse);transition:background-color var(--dur-fast) var(--ease-out)}
+.btn--small:hover{background:var(--color-red-dark)}
+
+/* --- 3.3 Ссылка --- */
+.link{display:inline-flex;align-items:center;min-height:var(--target);font-family:var(--font-mono);font-size:var(--text-label);font-weight:500;letter-spacing:var(--track-label);text-transform:uppercase;text-decoration:underline;text-decoration-thickness:var(--border-underline);text-underline-offset:var(--space-1);text-decoration-color:var(--color-ink);transition:text-decoration-color var(--dur-fast) var(--ease-out)}
+.link:hover{text-decoration-color:var(--color-accent)}
+.link--inverse{text-decoration-color:var(--color-text-inverse)}
+
+/* --- 3.4 Ярлык --- */
+.tag{display:inline-block;background:var(--color-accent);color:var(--color-white);font-family:var(--font-cond);font-weight:600;font-size:var(--text-label);letter-spacing:var(--track-label);text-transform:uppercase;line-height:var(--lh-sub);padding:var(--space-1) var(--space-2);transform:rotate(var(--tag-rot))}
+
+/* --- 3.5 Заглушка фото --- */
+.ph{position:relative;aspect-ratio:var(--ar,4/5);background:var(--color-kraft);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph__label{font-family:var(--font-mono);font-size:var(--text-label);letter-spacing:var(--track-label);color:var(--color-text-muted);text-transform:none;background:var(--color-surface);padding:var(--space-1) var(--space-2);text-align:center}
+.ph--bw{background:var(--color-photo-dark)}
+.ph--bw::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 36%, var(--color-photo-light), var(--color-transparent) 62%),linear-gradient(180deg, var(--color-photo-light), var(--color-photo-dark));-webkit-mask-image:var(--fx-halftone);mask-image:var(--fx-halftone);-webkit-mask-size:var(--fx-halftone-step) var(--fx-halftone-step);mask-size:var(--fx-halftone-step) var(--fx-halftone-step)}
+.ph--bw::after{content:"";position:absolute;inset:0;background-image:var(--fx-grain);mix-blend-mode:screen;opacity:var(--fx-grain-opacity)}
+.ph--bw .ph__label{position:relative;z-index:1;background:var(--color-ink);color:var(--color-text-inverse)}
+.ph__cap{position:absolute;left:var(--space-3);bottom:var(--space-3);z-index:1;background:var(--color-ink);color:var(--color-text-inverse)}
+
+/* --- 3.6 Пометка от руки --- */
+.note{font-family:var(--font-hand);font-weight:600;font-size:var(--text-hand);line-height:1.1;color:var(--color-accent-text)}
+.draw path{fill:none;stroke:var(--color-accent);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.js .draw path{stroke-dashoffset:1}
+.js .draw.is-drawn path{stroke-dashoffset:0;transition:stroke-dashoffset var(--dur-slow) var(--ease-out)}
+
+/* --- 3.7 Скотч --- */
+.tape{position:absolute;width:112px;height:30px;background:var(--color-tape);transform:rotate(var(--rot,-12deg));clip-path:polygon(0 8%,4% 0,8% 10%,12% 0,88% 0,92% 9%,96% 0,100% 10%,100% 90%,96% 100%,92% 91%,88% 100%,12% 100%,8% 90%,4% 100%,0 92%,3% 50%);z-index:2;pointer-events:none}
+
+/* --- 3.8 Рубрика --- */
+.rubric{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:var(--space-4);padding-bottom:var(--space-3);border-bottom:var(--border-bold) solid var(--color-rule);margin-bottom:var(--space-6)}
+.rubric__title{font-family:var(--font-cond);font-weight:700;font-size:var(--text-h2);line-height:1;letter-spacing:var(--track-h2);text-transform:uppercase}
+.rubric__aside{text-align:right;color:var(--color-text-muted)}
+.rubric__lead{grid-column:1 / -1;max-width:var(--measure);font-size:var(--text-lead);line-height:var(--lh-body);color:var(--color-text-muted)}
+
+/* --- 3.9 Карточка товара --- */
+.card{position:relative;z-index:var(--z-clean);display:flex;flex-direction:column;background:var(--card-bg);border:var(--card-border);transition:transform var(--dur-base) var(--ease-out)}
+.card:hover{transform:translateY(var(--lift));box-shadow:var(--shadow-hard)}
+.card__meta{display:flex;justify-content:space-between;align-items:center;gap:var(--space-2);min-height:var(--target);padding:var(--space-2) var(--space-3);border-bottom:var(--border-hair) solid var(--color-rule)}
+.card__label{font-family:var(--font-mono);font-size:var(--text-label-sm);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--color-text-muted)}
+.card__photo{border-bottom:var(--border-hair) solid var(--color-rule)}
+.card__body{display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-3);flex:1}
+.card__title{font-family:var(--font-cond);font-weight:700;font-size:var(--text-h4);line-height:var(--lh-snug);letter-spacing:var(--track-h2);text-transform:uppercase}
+.card__desc{color:var(--color-text-muted)}
+.card__price{font-family:var(--font-display);font-weight:900;font-size:var(--text-price);line-height:1;margin-top:auto;padding-top:var(--space-2)}
+.card__hint{min-height:var(--space-4);font-family:var(--font-mono);font-size:var(--text-label);color:var(--color-error)}
+.card__specs{display:grid;grid-template-columns:auto 1fr;gap:var(--space-1) var(--space-3);font-family:var(--font-mono);font-size:var(--text-label);letter-spacing:var(--track-label);text-transform:uppercase;border-top:var(--border-hair) solid var(--color-rule);border-bottom:var(--border-hair) solid var(--color-rule);padding:var(--space-3) 0;margin:var(--space-2) 0}
+.card__specs dt{color:var(--color-text-muted)}
+.card--hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);grid-template-rows:auto 1fr}
+.card--hero .card__meta{grid-column:1 / -1}
+.card--hero .card__photo{border-bottom:0;border-right:var(--border-hair) solid var(--color-rule);align-self:stretch;aspect-ratio:auto;min-height:100%}
+.card--hero .card__title{font-size:var(--text-h3)}
+.card--hero .card__price{font-size:var(--text-price-l)}
+.card--hero .card__body{padding:var(--space-4)}
+.card--row{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);grid-template-rows:auto 1fr}
+.card--row .card__meta{grid-column:1 / -1}
+.card--row .card__photo{border-bottom:0;border-right:var(--border-hair) solid var(--color-rule);align-self:start}
+.card[hidden]{display:none}
+
+/* размеры */
+.sizes{display:flex;gap:var(--space-2);flex-wrap:wrap}
+.sizes__btn{min-width:var(--target);min-height:var(--target);font-family:var(--font-cond);font-weight:600;font-size:var(--text-btn-sm);letter-spacing:var(--track-label);border:var(--border-base) solid var(--color-rule);background:var(--color-surface);transition:background-color var(--dur-fast) var(--ease-out),color var(--dur-fast) var(--ease-out)}
+.sizes__btn:hover{background:var(--color-kraft)}
+.sizes__btn[aria-pressed="true"]{background:var(--color-ink);color:var(--color-text-inverse)}
+.sizes__btn:disabled{color:var(--color-text-muted);text-decoration:line-through;text-decoration-color:var(--color-accent);text-decoration-thickness:var(--border-underline);cursor:not-allowed;background:var(--color-bg-alt)}
+.sizes.is-error .sizes__btn:not(:disabled){border-color:var(--color-error)}
+.sizes.is-error{animation:shake var(--dur-shake) var(--ease-linear)}
+
+/* --- 3.10 Клочок --- */
+.scrap{position:relative;padding:var(--space-6) var(--space-5) var(--space-5);transform:rotate(var(--rot,0deg));transition:transform var(--dur-base) var(--ease-out);isolation:isolate}
+.scrap:hover,.scrap:focus-within{transform:rotate(0deg)}
+.scrap__paper{position:absolute;inset:0;z-index:-1;filter:var(--fx-scrap-filter) drop-shadow(var(--shadow-soft))}
+.scrap__paper::before{content:"";position:absolute;inset:0;background:var(--color-surface);clip-path:var(--clip)}
+.scrap--a{--clip:polygon(0% 2%,9% 0%,22% 1.5%,37% .3%,51% 1.8%,66% 0%,80% 1.2%,93% .2%,100% 1.6%,99.2% 24%,100% 51%,99% 77%,100% 98.5%,84% 100%,63% 98.6%,41% 100%,19% 98.8%,.6% 100%,0% 71%,1% 38%)}
+.scrap--b{--clip:polygon(1% .8%,14% 1.6%,30% 0%,47% 1.4%,61% .2%,78% 1.8%,99% 0%,100% 19%,98.8% 43%,100% 66%,99% 99%,81% 98.4%,58% 100%,36% 98.6%,15% 100%,0% 98.8%,.8% 72%,0% 46%,1.2% 21%)}
+.scrap--c{--clip:polygon(0% 0%,18% 1.4%,34% .2%,52% 1.6%,70% 0%,86% 1.2%,100% .4%,99% 30%,100% 58%,98.8% 84%,100% 100%,76% 98.8%,54% 100%,30% 98.4%,11% 100%,.4% 99%,1.2% 66%,0% 33%)}
+.scrap--d{--clip:polygon(.5% 1.2%,12% 0%,27% 1.8%,44% .4%,58% 1.6%,73% 0%,88% 1.4%,100% .2%,99% 28%,100% 55%,98.6% 80%,100% 99%,86% 100%,68% 98.4%,49% 100%,27% 98.6%,8% 100%,0% 97%,1.4% 60%,0% 30%)}
+.scrap--e{--clip:polygon(0% .4%,16% 1.8%,33% 0%,49% 1.2%,67% .2%,83% 1.6%,100% 0%,98.8% 22%,100% 47%,99.2% 73%,100% 100%,79% 98.6%,57% 100%,38% 98.8%,19% 100%,0% 98.4%,1% 70%,0% 41%,.8% 18%)}
+.scrap--f{--clip:polygon(1.2% 0%,20% 1.2%,38% 0%,55% 1.6%,72% .2%,90% 1.4%,99% 0%,100% 34%,98.8% 62%,100% 99.2%,80% 100%,61% 98.6%,42% 100%,22% 98.8%,0% 100%,.6% 64%,0% 29%)}
+.scrap__case{color:var(--color-text-muted)}
+.scrap__title{font-family:var(--font-cond);font-weight:700;font-size:var(--text-h3);text-transform:uppercase;letter-spacing:var(--track-h2);line-height:var(--lh-head);margin:var(--space-1) 0 var(--space-3)}
+.scrap__photo{margin-bottom:var(--space-3)}
+.scrap__facts{display:flex;justify-content:space-between;gap:var(--space-3);padding:var(--space-2) 0;margin-bottom:var(--space-2);border-top:var(--border-hair) solid var(--color-rule);border-bottom:var(--border-hair) solid var(--color-rule)}
+
+/* --- 3.11 Поле ввода --- */
+.field{display:flex;flex-direction:column;gap:var(--space-2)}
+.field__label{font-family:var(--font-mono);font-size:var(--text-label);font-weight:500;letter-spacing:var(--track-label);text-transform:uppercase}
+.field__row{display:flex;gap:var(--space-3);align-items:stretch}
+.field__input{flex:1;min-width:0;height:var(--btn-h);padding:0 var(--space-3);background:var(--color-surface);border:var(--border-base) solid var(--color-rule);border-radius:var(--radius);font-family:var(--font-mono);font-size:var(--text-body);color:var(--color-text)}
+.field__input::placeholder{color:var(--color-text-muted)}
+.field__input:focus-visible{outline:var(--border-bold) solid var(--color-focus);outline-offset:0}
+.field__msg{min-height:var(--space-5);font-family:var(--font-mono);font-size:var(--text-label);line-height:var(--lh-sub);color:var(--color-text-muted)}
+.field--error .field__input{border-color:var(--color-error);box-shadow:inset 0 0 0 var(--border-base) var(--color-error);animation:shake var(--dur-shake) var(--ease-linear)}
+.field--error .field__msg{color:var(--color-error)}
+.field--success .field__input{border-color:var(--color-success)}
+.field--success .field__msg{color:var(--color-success)}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(calc(var(--shake) * -1))}
+  50%{transform:translateX(var(--shake))}
+  75%{transform:translateX(calc(var(--shake) * -1))}
+}
+
+/* --- 3.12 Аккордеон --- */
+.faq{border-top:var(--border-bold) solid var(--color-rule)}
+.faq__item{border-bottom:var(--border-hair) solid var(--color-rule)}
+.faq__btn{display:flex;width:100%;justify-content:space-between;align-items:center;gap:var(--space-4);min-height:calc(var(--target) + var(--space-4));padding:var(--space-3) 0;text-align:left;font-family:var(--font-cond);font-weight:600;font-size:var(--text-h4);letter-spacing:var(--track-h2);text-transform:uppercase;transition:color var(--dur-fast) var(--ease-out)}
+.faq__btn:hover{color:var(--color-accent-text)}
+.faq__mark{flex:none;display:inline-flex;align-items:center;justify-content:center;width:var(--target);height:var(--target);border:var(--border-base) solid var(--color-rule);font-family:var(--font-cond);font-size:var(--text-stamp-m);line-height:1}
+.faq__a{padding:0 var(--space-8) var(--space-4) 0;max-width:var(--measure)}
+.faq__a[hidden]{display:none}
+.faq__a.is-open{animation:reveal-in var(--dur-base) var(--ease-out) both}
+@keyframes reveal-in{from{opacity:0;transform:translateY(calc(var(--space-2) * -1))}to{opacity:1;transform:none}}
+
+/* --- 3.13 Бегущая строка --- */
+.ticker{background:var(--color-surface-dark);color:var(--color-text-inverse);border-top:var(--border-bold) solid var(--color-accent);overflow:hidden;white-space:nowrap;margin-top:var(--space-6)}
+.ticker__track{display:inline-flex;animation:tick var(--dur-ticker) var(--ease-linear) infinite}
+.ticker:hover .ticker__track,.ticker:focus-within .ticker__track{animation-play-state:paused}
+.ticker__group{display:inline-flex;align-items:center;padding:var(--space-3) 0;font-family:var(--font-cond);font-weight:500;font-size:var(--text-nav);letter-spacing:var(--track-ticker);text-transform:uppercase}
+.ticker__star{color:var(--color-accent);margin:0 var(--space-4)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* --- 3.14 Появление блоков --- */
+.js .reveal{opacity:0;transform:translateY(var(--reveal-shift));transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out)}
+.js .reveal.is-visible{opacity:1;transform:none}
+
+/* =========================================================
+   4. БЛОКИ
+   ========================================================= */
+
+/* Блок 1. Строка-дата */
+.dateline{border-bottom:var(--border-hair) solid var(--color-rule)}
+.dateline__row{display:flex;justify-content:space-between;gap:var(--space-4);padding-top:var(--space-2);padding-bottom:var(--space-2)}
+.dateline b{font-weight:600;color:var(--color-accent-text)}
+
+/* Блок 2. Навигация */
+.nav{position:sticky;top:0;z-index:var(--z-nav);background:var(--color-bg);border-bottom:var(--border-bold) double var(--color-rule)}
+.nav__row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--space-4);height:var(--nav-h)}
+.nav--compact .nav__row{height:var(--nav-h-compact)}
+.logo{display:inline-flex;flex-direction:column;justify-self:start;min-height:var(--target);justify-content:center;transform-origin:left center;transition:transform var(--dur-base) var(--ease-out)}
+.nav--compact .logo{transform:scale(.86)}
+.logo__name{font-family:var(--font-cond);font-weight:700;font-size:var(--text-logo);letter-spacing:var(--track-btn);line-height:1}
+.logo__sub{margin-top:var(--space-1)}
+.menu{display:flex;gap:var(--space-5)}
+.menu__link{display:inline-flex;align-items:center;min-height:var(--target);position:relative;font-family:var(--font-cond);font-weight:500;font-size:var(--text-nav);letter-spacing:var(--track-btn);text-transform:uppercase}
+.menu__link::after{content:"";position:absolute;left:0;right:0;bottom:var(--space-2);height:var(--border-underline);background:var(--color-accent);transform:scaleX(0);transform-origin:left;transition:transform var(--dur-base) var(--ease-out)}
+.menu__link:hover::after{transform:scaleX(1)}
+.menu__link[aria-current="page"]::after{background:var(--color-ink);transform:scaleX(1)}
+.tools{display:flex;justify-self:end;align-items:center;gap:var(--space-4)}
+.tools__item{display:inline-flex;align-items:center;min-height:var(--target)}
+.tools__item:hover{color:var(--color-accent-text)}
+.cart-btn{display:inline-flex;align-items:center;gap:var(--space-2);min-height:var(--target);padding:0 var(--space-4);background:var(--color-ink);color:var(--color-text-inverse);font-family:var(--font-cond);font-weight:600;font-size:var(--text-btn-sm);letter-spacing:var(--track-btn);text-transform:uppercase;transition:background-color var(--dur-fast) var(--ease-out)}
+.cart-btn:hover{background:var(--color-red-dark)}
+.cart-btn__count{display:inline-block;min-width:2ch;text-align:left}
+.cart-btn.is-bump .cart-btn__count{animation:bump var(--dur-slow) var(--ease-out)}
+@keyframes bump{from{transform:scale(1.6)}to{transform:scale(1)}}
+
+/* Блок 3. Шапка газеты */
+.mast{display:grid;grid-template-columns:var(--ear-w) minmax(0,1fr) var(--ear-w);gap:var(--space-4);align-items:center;padding:var(--space-5) 0 var(--space-4);border-bottom:var(--border-hair) solid var(--color-rule)}
+.ear{border:var(--border-base) solid var(--color-rule);padding:var(--space-3);font-family:var(--font-mono);font-size:var(--text-label-sm);letter-spacing:var(--track-label);text-transform:uppercase;line-height:var(--lh-sub)}
+.ear__big{display:block;font-family:var(--font-cond);font-weight:700;font-size:var(--text-ear);letter-spacing:var(--track-h2);line-height:1;margin-bottom:var(--space-2)}
+.ear--dark{background:var(--color-surface-dark);color:var(--color-text-inverse);border-color:var(--color-surface-dark)}
+.mast__center{container-type:inline-size;text-align:center;min-width:0}
+.mast__title{font-family:var(--font-display);font-weight:900;font-size:var(--text-masthead);line-height:.92;text-transform:uppercase;white-space:nowrap;letter-spacing:-.01em}
+.mast__title-accent{position:relative;display:inline-block;color:var(--color-accent);isolation:isolate}
+.mast__title-accent::after{content:attr(data-text);position:absolute;left:var(--fx-misreg-s);top:var(--fx-misreg-s);z-index:-1;color:var(--color-blue);opacity:.55;mix-blend-mode:multiply}
+.mast__tagline{margin-top:var(--space-3);font-family:var(--font-mono);font-size:var(--text-label);letter-spacing:var(--track-tagline);text-transform:uppercase}
+
+/* Блок 4. Hero */
+.hero{display:grid;grid-template-columns:var(--col-hero-left) minmax(0,1fr) var(--col-hero-right);padding-top:var(--space-5);background-image:var(--fx-fold)}
+.hero__col{padding:0 var(--space-5);min-width:0}
+.hero__col--left{padding-left:0;border-right:var(--border-hair) solid var(--color-rule)}
+.hero__col--right{padding-right:0;border-left:var(--border-hair) solid var(--color-rule)}
+.kicker{font-family:var(--font-cond);font-weight:700;font-size:var(--text-btn-sm);letter-spacing:var(--track-btn);text-transform:uppercase;border-top:var(--border-bold) solid var(--color-rule);padding-top:var(--space-2);margin-bottom:var(--space-3)}
+.kicker--red{color:var(--color-accent-text);border-color:var(--color-accent)}
+.art + .art{margin-top:var(--space-5)}
+.art__title{font-family:var(--font-display);font-weight:700;font-size:var(--text-h3);line-height:var(--lh-head);margin-bottom:var(--space-2)}
+.art__text{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.art__text--drop::first-letter{float:left;font-family:var(--font-display);font-weight:900;font-size:var(--text-dropcap);line-height:.8;padding:var(--space-1) var(--space-2) 0 0;color:var(--color-text)}
+.art__meta{margin-top:var(--space-2);color:var(--color-text-muted)}
+.index{margin-top:var(--space-5)}
+.index__link{display:flex;align-items:baseline;gap:var(--space-2);min-height:var(--target);padding-top:var(--space-2);border-bottom:var(--border-hair) solid var(--color-rule)}
+.index__link span:first-child{font-family:var(--font-cond);font-weight:500;font-size:var(--text-btn-sm);letter-spacing:var(--track-label);text-transform:uppercase}
+.index__link span:last-child{margin-left:auto;color:var(--color-text-muted)}
+.index__link:hover span:first-child{color:var(--color-accent-text)}
+.diag{font-family:var(--font-cond);font-weight:700;font-size:var(--text-stamp-m);letter-spacing:var(--track-btn);text-transform:uppercase;margin-bottom:var(--space-2)}
+.headline{font-family:var(--font-cond);font-weight:700;font-size:var(--text-hero);line-height:var(--lh-tight);letter-spacing:var(--track-hero);text-transform:uppercase}
+.headline__line{display:block}
+.headline__accent{position:relative;display:inline-block;color:var(--color-accent);isolation:isolate}
+.headline__accent::before{content:attr(data-text);position:absolute;left:var(--fx-misreg);top:var(--fx-misreg);z-index:-1;color:var(--color-blue);opacity:.7;mix-blend-mode:multiply}
+.hero__sub{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:var(--text-sub);line-height:var(--lh-sub);margin:var(--space-3) 0 var(--space-4);max-width:var(--measure)}
+.hero__figure{position:relative;margin-right:var(--space-3)}
+.hero__photo{aspect-ratio:auto;height:var(--photo-hero-h);border:var(--border-base) solid var(--color-rule)}
+.hero__stamp-new{left:calc(var(--space-3) * -1);top:var(--space-4);--rot:-7deg}
+.hero__stamp-ok{right:calc(var(--space-6) * -1);top:var(--space-6);--rot:12deg}
+.hero__stamp-limit{right:18%;bottom:calc(var(--space-4) * -1);--rot:-3deg}
+.hero__actions{display:flex;align-items:center;gap:var(--space-5);margin-top:var(--space-6)}
+.ads__item{position:relative;z-index:var(--z-clean);border:var(--border-base) solid var(--color-rule);background:var(--color-surface);padding:var(--space-3);margin-bottom:var(--space-3)}
+.ads__item .tag{position:absolute;top:calc(var(--space-2) * -1);right:var(--space-3)}
+.ads__top{display:flex;justify-content:space-between;color:var(--color-text-muted)}
+.ads__thumb{--ar:16/9;margin:var(--space-2) 0}
+.ads__title{font-family:var(--font-cond);font-weight:700;font-size:var(--text-h4);letter-spacing:var(--track-h2);text-transform:uppercase;line-height:var(--lh-snug)}
+.ads__row{display:flex;justify-content:space-between;align-items:center;gap:var(--space-2);margin-top:var(--space-2)}
+.price{position:relative;font-family:var(--font-display);font-weight:900;font-size:var(--text-price);line-height:1;white-space:nowrap}
+.price__circle{position:absolute;left:calc(var(--space-3) * -1);top:calc(var(--space-3) * -1);width:calc(100% + var(--space-5));height:calc(100% + var(--space-5));overflow:visible}
+
+/* Блок 6. Каталог */
+.filter{display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-5)}
+.filter__label{margin-right:var(--space-3)}
+.filter__btn{min-width:var(--target);min-height:var(--target);padding:0 var(--space-3);font-family:var(--font-cond);font-weight:600;font-size:var(--text-btn-sm);letter-spacing:var(--track-btn);text-transform:uppercase;border:var(--border-base) solid var(--color-rule);transition:background-color var(--dur-fast) var(--ease-out)}
+.filter__btn:hover{background:var(--color-kraft)}
+.filter__btn[aria-pressed="true"]{background:var(--color-ink);color:var(--color-text-inverse)}
+.filter__status{margin-left:auto;color:var(--color-text-muted)}
+.catalog{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--space-4)}
+.catalog > .card--hero{grid-column:span 6}
+.catalog > .card--col{grid-column:span 3}
+.catalog > .card--row{grid-column:span 4}
+.catalog.is-filtered > .card{grid-column:span 4}
+.catalog.is-filtered > .card--hero{grid-column:span 8}
+.catalog__empty{grid-column:1 / -1;border:var(--border-base) dashed var(--color-rule);padding:var(--space-6);text-align:center}
+.catalog__empty p{margin-bottom:var(--space-4)}
+.catalog__empty[hidden]{display:none}
+.catalog__foot{display:flex;justify-content:space-between;align-items:center;margin-top:var(--space-5)}
+
+/* Блок 7. Архив */
+.archive{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6);align-items:start;padding-top:var(--space-3)}
+.archive .scrap:nth-child(2){margin-top:var(--space-6)}
+.archive .scrap:nth-child(3){margin-top:var(--space-3)}
+.scrap__stamp{right:var(--space-3);top:calc(var(--space-8) + var(--space-6))}
+.scrap .tape{top:calc(var(--space-3) * -1);left:calc(50% - var(--space-7))}
+.scrap__note{position:absolute;right:var(--space-4);bottom:calc(var(--space-4) * -1);transform:rotate(-4deg)}
+.clip{position:absolute;top:calc(var(--space-3) * -1);right:var(--space-6);width:18px;height:52px;border:var(--border-underline) solid var(--color-ink-soft);border-radius:var(--space-2);z-index:2}
+
+/* Блок 8. Манифест */
+.manifest{position:relative;overflow:hidden;background:var(--color-surface-dark);color:var(--color-text-inverse);padding:var(--space-8) 0;text-align:center}
+.manifest::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle, var(--color-photo-light) 30%, var(--color-transparent) 34%);background-size:var(--fx-halftone-step) var(--fx-halftone-step);opacity:.35}
+.manifest__ghost{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-12deg);font-family:var(--font-cond);font-weight:700;font-size:var(--text-quote);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--color-text-inverse);opacity:.12;white-space:nowrap;padding:var(--space-2) var(--space-5);pointer-events:none}
+.manifest__ghost::before{content:"";position:absolute;inset:0;border:var(--border-stamp) solid currentColor;filter:var(--fx-stamp-filter)}
+.manifest__inner{position:relative}
+.manifest__label{font-family:var(--font-cond);font-weight:700;font-size:var(--text-h4);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--color-accent)}
+.manifest__quote{font-family:var(--font-display);font-weight:900;font-size:var(--text-quote);line-height:var(--lh-head);max-width:18ch;margin:var(--space-5) auto}
+.marker{position:relative;display:inline-block;white-space:nowrap}
+.marker svg{position:absolute;left:-4%;bottom:-.08em;width:108%;height:.42em;overflow:visible;z-index:-1}
+.marker .draw path{stroke-width:14;stroke-linecap:butt;opacity:.85}
+.manifest__quote{isolation:isolate}
+.manifest__sign{font-size:var(--text-lead);line-height:var(--lh-body);max-width:var(--measure);margin:0 auto var(--space-5)}
+
+/* Блок 9. Протокол */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:var(--border-hair) solid var(--color-rule)}
+.step{padding:var(--space-5) var(--space-4) var(--space-4);border-right:var(--border-hair) solid var(--color-rule)}
+.step:first-child{padding-left:0}
+.step:last-child{border-right:0;padding-right:0}
+.step__num{display:inline-flex;align-items:center;justify-content:center;width:calc(var(--space-7) + var(--space-3));height:var(--space-7);font-family:var(--font-cond);font-weight:700;font-size:var(--text-step);line-height:1;position:relative;margin-bottom:var(--space-4);transform:rotate(var(--rot,-2deg))}
+.step__num::before{content:"";position:absolute;inset:0;border:var(--border-bold) solid var(--color-ink);filter:var(--fx-stamp-filter)}
+.step__title{font-family:var(--font-display);font-weight:700;font-size:var(--text-h3);line-height:var(--lh-head);margin-bottom:var(--space-2)}
+.step__text{color:var(--color-text-muted);max-width:32ch}
+.steps__back{display:flex;justify-content:flex-end;align-items:center;gap:var(--space-3);margin-top:var(--space-4)}
+.steps__arrow{width:120px;height:56px;overflow:visible}
+
+/* Блок 10. Размеры */
+.sizes-sec{display:grid;grid-template-columns:7fr 5fr;gap:var(--space-6);align-items:start}
+.table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:var(--text-body);background:var(--color-surface);border:var(--border-base) solid var(--color-rule)}
+.table caption{caption-side:bottom;text-align:left;padding-top:var(--space-3);font-family:var(--font-mono);font-size:var(--text-label);letter-spacing:var(--track-label);text-transform:uppercase;color:var(--color-text-muted)}
+.table th,.table td{padding:var(--space-3);border-bottom:var(--border-hair) solid var(--color-rule);text-align:left}
+.table thead th{font-family:var(--font-cond);font-weight:600;font-size:var(--text-btn-sm);letter-spacing:var(--track-btn);text-transform:uppercase;border-bottom:var(--border-bold) solid var(--color-rule)}
+.table tbody th{font-family:var(--font-cond);font-weight:700;font-size:var(--text-h4)}
+.sizes-aside{position:relative;padding-top:var(--space-5)}
+.sizes-aside__note{display:block;max-width:16ch;transform:rotate(-3deg);margin-bottom:var(--space-3)}
+.sizes-aside__arrow{position:absolute;left:calc(var(--space-8) * -1);top:var(--space-3);width:96px;height:64px;overflow:visible}
+.sizes-aside__text{margin:var(--space-4) 0 var(--space-5);max-width:40ch}
+
+/* Блок 11. Реестр качества */
+.registry{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:var(--border-bold) double var(--color-rule);border-bottom:var(--border-bold) double var(--color-rule)}
+.registry__item{padding:var(--space-5) var(--space-4);border-right:var(--border-hair) solid var(--color-rule)}
+.registry__item:last-child{border-right:0}
+.registry__fig{display:block;font-family:var(--font-cond);font-weight:700;font-size:var(--text-figure);line-height:1;letter-spacing:var(--track-hero);margin:var(--space-2) 0}
+.registry__fig small{font-size:var(--text-stamp-m);letter-spacing:var(--track-label)}
+.registry__name{font-family:var(--font-cond);font-weight:600;font-size:var(--text-h4);text-transform:uppercase;letter-spacing:var(--track-h2);line-height:var(--lh-snug)}
+.registry__text{color:var(--color-text-muted);margin-top:var(--space-1)}
+
+/* Блок 12. Письма */
+.letters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6);align-items:start;padding-top:var(--space-3)}
+.letters .scrap:nth-child(1){margin-top:var(--space-4)}
+.letters .scrap:nth-child(3){margin-top:var(--space-6)}
+.letter__date{color:var(--color-text-muted);margin-bottom:var(--space-3)}
+.letter__text{font-size:var(--text-lead);line-height:var(--lh-body);margin-bottom:var(--space-4)}
+.letter__sign{font-family:var(--font-hand);font-weight:700;font-size:var(--text-hand);line-height:1.1}
+.letter__stamp{right:var(--space-4);bottom:var(--space-4);--rot:-8deg}
+
+/* Блок 13. FAQ */
+.faq-sec{display:grid;grid-template-columns:4fr 8fr;gap:var(--space-6);align-items:start}
+.faq-sec__aside p{margin-top:var(--space-4);max-width:34ch;color:var(--color-text-muted)}
+.faq-sec .rubric{display:block;border-bottom:0;margin-bottom:0;padding-bottom:0}
+
+/* Блок 14. Рассылка и подвал */
+.subscribe{border-top:var(--border-bold) solid var(--color-rule)}
+.subscribe__grid{display:grid;grid-template-columns:5fr 7fr;gap:var(--space-6);align-items:start}
+.subscribe__title{font-family:var(--font-cond);font-weight:700;font-size:var(--text-h2);line-height:1;text-transform:uppercase;letter-spacing:var(--track-h2);margin:var(--space-2) 0 var(--space-3)}
+.subscribe__text{font-size:var(--text-lead);line-height:var(--lh-body);max-width:var(--measure)}
+.subscribe__form{position:relative;padding:var(--space-5);border:var(--border-base) solid var(--color-rule);background:var(--color-surface)}
+.subscribe__consent{margin-top:var(--space-2);color:var(--color-text-muted)}
+.subscribe__stamp{right:var(--space-5);top:calc(var(--space-5) * -1);--rot:-9deg}
+.subscribe__stamp[hidden]{display:none}
+.footer{border-top:var(--border-bold) double var(--color-rule);margin-top:var(--space-8);padding-top:var(--space-6)}
+.footer__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6);padding-bottom:var(--space-6)}
+.footer__title{font-family:var(--font-cond);font-weight:700;font-size:var(--text-h4);letter-spacing:var(--track-btn);text-transform:uppercase;border-bottom:var(--border-bold) solid var(--color-rule);padding-bottom:var(--space-2);margin-bottom:var(--space-3)}
+.footer__list li{border-bottom:var(--border-hair) solid var(--color-rule)}
+.footer__list a,.footer__list span{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);min-height:var(--target)}
+.footer__list a:hover{color:var(--color-accent-text)}
+.footer__list b{font-family:var(--font-mono);font-weight:500;font-size:var(--text-label);letter-spacing:var(--track-label);text-transform:uppercase;text-align:right}
+.footer__bottom{display:flex;justify-content:space-between;gap:var(--space-4);padding:var(--space-3) 0;border-top:var(--border-hair) solid var(--color-rule)}
+.footer__status{display:flex;gap:var(--space-5)}
+
+/* =========================================================
+   5. АДАПТИВ (запасной вариант)
+   ========================================================= */
+@media (max-width:1199px){
+  :root{--gutter:var(--space-5)}
+  .hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .hero__col--center{grid-column:1 / -1;grid-row:1;padding:0 0 var(--space-6)}
+  .hero__col--left{padding-left:0}
+  .hero__col--right{padding-right:0}
+  .hero__stamp-ok{right:0}
+  .menu{gap:var(--space-4)}
+  .catalog > .card--hero,.catalog.is-filtered > .card--hero{grid-column:1 / -1}
+  .catalog > .card--col,.catalog > .card--row,.catalog.is-filtered > .card{grid-column:span 6}
+  .archive,.letters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps,.registry{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step:nth-child(2n){border-right:0}
+  .step:nth-child(3){padding-left:0}
+  .registry__item:nth-child(2n){border-right:0}
+  .sizes-sec,.faq-sec,.subscribe__grid{grid-template-columns:minmax(0,1fr)}
+  .sizes-aside__arrow{display:none}
+  .footer__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .nav__row{grid-template-columns:auto 1fr;height:auto;padding:var(--space-2) 0;row-gap:0}
+  .menu{grid-column:1 / -1;grid-row:2;flex-wrap:wrap;gap:0 var(--space-4)}
+  .tools{grid-column:2;grid-row:1}
+  .nav--compact .nav__row{height:auto}
+  .mast{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .mast__center{grid-column:1 / -1;grid-row:1}
+  .mast__title{white-space:normal;font-size:clamp(48px, 13cqi, 96px)}
+  .mast__title span{display:block}
+}
+@media (max-width:767px){
+  :root{--gutter:var(--space-3);--stamp-scale:.7;--text-hero:clamp(56px, 16vw, 96px);--text-h2:clamp(34px, 9vw, 48px);--text-quote:clamp(30px, 8vw, 44px);--text-price-l:var(--text-price)}
+  .dateline__row{flex-wrap:wrap;justify-content:flex-start;column-gap:var(--space-4);row-gap:0}
+  .tools{gap:var(--space-2)}
+  .tools__item--hide-s{display:none}
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .hero__col,.hero__col--left,.hero__col--right{grid-column:auto;grid-row:auto;padding:0 0 var(--space-5);border:0}
+  .hero__figure{margin-right:0}
+  .hero__stamp-ok{right:calc(var(--space-3) * -1);top:auto;bottom:var(--space-4)}
+  .hero__actions{flex-wrap:wrap;gap:var(--space-3)}
+  .rubric{grid-template-columns:minmax(0,1fr)}
+  .rubric__aside{text-align:left}
+  .catalog{grid-template-columns:minmax(0,1fr)}
+  .catalog > .card--hero,.catalog > .card--col,.catalog > .card--row,.catalog.is-filtered > .card,.catalog.is-filtered > .card--hero{grid-column:1 / -1}
+  .card--hero,.card--row{grid-template-columns:minmax(0,1fr)}
+  .card--hero .card__photo,.card--row .card__photo{border-right:0;border-bottom:var(--border-hair) solid var(--color-rule);aspect-ratio:4/5;min-height:0}
+  .archive,.letters,.steps,.registry,.footer__grid{grid-template-columns:minmax(0,1fr)}
+  .archive .scrap,.letters .scrap{margin-top:0!important}
+  .step,.step:first-child,.step:nth-child(3){padding:var(--space-4) 0;border-right:0;border-bottom:var(--border-hair) solid var(--color-rule)}
+  .registry__item{border-right:0;border-bottom:var(--border-hair) solid var(--color-rule)}
+  .field__row{flex-direction:column}
+  .footer__bottom,.footer__status,.catalog__foot{flex-direction:column;align-items:flex-start;gap:var(--space-2)}
+  .faq__a{padding-right:0}
+  .ticker__group{font-size:var(--text-btn-sm)}
+}
+
+/* =========================================================
+   6. СНИЖЕНИЕ ДВИЖЕНИЯ
+   ========================================================= */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}
+  .ticker__track{animation:none!important}
+  .js .stamp[data-stamp]{opacity:var(--stamp-opacity);animation:none!important}
+  .js .reveal{opacity:1;transform:none}
+  .js .draw path{stroke-dashoffset:0}
+  .field--error .field__input,.sizes.is-error{animation:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержанию</a>
+
+<!-- SVG-фильтры: только для фона штампов и клочков -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="rough-stamp" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="rough-scrap" x="-4%" y="-4%" width="108%" height="108%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="11" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="8.5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<!-- Блок 1. Строка-дата -->
+<div class="dateline">
+  <div class="wrap dateline__row label label--sm">
+    <span>Выпуск № 07 · <time id="issue-date">[дата]</time> · Москва</span>
+    <span>Цена выпуска: <b>1450 ₽</b></span>
+    <span>Тираж: <b>ограничен</b></span>
+  </div>
+</div>
+
+<!-- Блок 2. Навигация -->
+<header class="nav" id="nav">
+  <div class="wrap nav__row">
+    <a class="logo" href="#" aria-label="ABDSHOP, лаборатория – на главную">
+      <span class="logo__name">ABDSHOP</span>
+      <span class="logo__sub label label--sm">Лаборатория</span>
+    </a>
+    <nav aria-label="Основное меню">
+      <ul class="menu">
+        <li><a class="menu__link" href="#">Антология</a></li>
+        <li><a class="menu__link" href="#catalog">Каталог</a></li>
+        <li><a class="menu__link" href="#archive">Архив</a></li>
+        <li><a class="menu__link" href="#manifest">О бренде</a></li>
+      </ul>
+    </nav>
+    <div class="tools label">
+      <a class="tools__item tools__item--hide-s" href="#">Поиск</a>
+      <span class="tools__item tools__item--hide-s">РУБ (₽)</span>
+      <a class="cart-btn" href="#" id="cart-btn" aria-label="Корзина, образцов: 0">Корзина · <span class="cart-btn__count" id="cart-count" aria-hidden="true">0</span></a>
+    </div>
+  </div>
+</header>
+<p class="visually-hidden" id="cart-live" aria-live="polite"></p>
+
+<main id="main">
+  <div class="wrap">
+    <!-- Блок 3. Шапка газеты -->
+    <div class="mast">
+      <div class="ear"><span class="ear__big">540 GSM</span>Плотность полотна, унисекс-крой</div>
+      <div class="mast__center">
+        <h1 class="mast__title"><span>Вестник </span><span class="mast__title-accent" data-text="Бездны">Бездны</span></h1>
+        <p class="mast__tagline">Ежедневная газета лаборатории · Основана в 2023</p>
+      </div>
+      <div class="ear ear--dark"><span class="ear__big">Эдиция 04</span>Новый релиз, артикул GA-2026</div>
+    </div>
+
+    <!-- Блок 4. Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <aside class="hero__col hero__col--left" aria-label="Справка и указатель выпуска">
+        <article class="art">
+          <p class="kicker">Справка лаборатории</p>
+          <h3 class="art__title">Образец прошёл калибровку</h3>
+          <p class="art__text art__text--drop">Хлопковое полотно 540 GSM. Унисекс-крой держит посадку при длительной носке. Все размеры анатомически калиброваны.</p>
+          <p class="art__meta label label--sm">Статус: актуальный анализ</p>
+        </article>
+        <article class="art">
+          <p class="kicker kicker--red">Из архива</p>
+          <h3 class="art__title">Три коллекции <span class="strike">на распродаже</span> изъяты из оборота</h3>
+          <p class="art__text">Альбедо 2025, Цитринитас 2024 и Рубедо 2023 сняты с продаж. Доступны только для академической экспертизы.</p>
+          <p class="art__meta label label--sm">Хранение: закрытый фонд</p>
+        </article>
+        <nav class="index" aria-label="Указатель выпуска">
+          <p class="kicker">В этом выпуске</p>
+          <a class="index__link" href="#catalog"><span>Объявления</span><span class="label label--sm">полоса 2</span></a>
+          <a class="index__link" href="#archive"><span>Хроника изъятий</span><span class="label label--sm">полоса 3</span></a>
+          <a class="index__link" href="#sizes"><span>Калибровка размеров</span><span class="label label--sm">полоса 5</span></a>
+          <a class="index__link" href="#faq"><span>Справочное бюро</span><span class="label label--sm">полоса 7</span></a>
+        </nav>
+      </aside>
+
+      <div class="hero__col hero__col--center">
+        <p class="diag">Диагноз:</p>
+        <h2 class="headline" id="hero-title"><span class="headline__line">Великая</span><span class="headline__line"><span class="headline__accent" data-text="Бездна">Бездна</span></span></h2>
+        <p class="hero__sub">Деконструкция формы через алхимическую точность и милитари-тейлоринг. Новая парадигма монументального кроя.</p>
+        <figure class="hero__figure">
+          <div class="ph ph--bw hero__photo">
+            <span class="ph__label">[фото лукбука GA-2026]</span>
+            <figcaption class="ph__cap label label--sm">Фиксация образца · Лаборатория Москва</figcaption>
+          </div>
+          <span class="stamp stamp--red stamp--l stamp--on-dark hero__stamp-new" data-stamp style="--i:0" aria-hidden="true">Новая коллекция</span>
+          <span class="stamp stamp--blue stamp--round hero__stamp-ok" data-stamp style="--i:1" aria-hidden="true">Одобрено лабораторией</span>
+          <span class="stamp stamp--red stamp--m hero__stamp-limit" data-stamp style="--i:2" aria-hidden="true">Тираж ограничен</span>
+          <span class="visually-hidden">Новая коллекция. Одобрено лабораторией. Тираж ограничен.</span>
+        </figure>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#catalog">Смотреть коллекцию <span aria-hidden="true">→</span></a>
+          <a class="link" href="#manifest">Читать манифест</a>
+        </div>
+      </div>
+
+      <aside class="hero__col hero__col--right" aria-label="Объявления каталога">
+        <p class="kicker">Объявления · Каталог</p>
+        <div class="ads__item">
+          <span class="tag">Готов к диссекции</span>
+          <div class="ads__top label label--sm"><span>Образец_01</span><span>540 GSM</span></div>
+          <div class="ph ads__thumb"><span class="ph__label">[фото образца 01]</span></div>
+          <h3 class="ads__title">Футболка классическая</h3>
+          <div class="ads__row">
+            <span class="price">1450 ₽<svg class="price__circle draw" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M8 24C6 8 38 2 68 4c26 2 32 15 22 25-10 9-52 11-76 4C-2 27 8 11 42 7"/></svg></span>
+            <a class="btn btn--small" href="#obrazets-01">Выбрать размер</a>
+          </div>
+        </div>
+        <div class="ads__item">
+          <div class="ads__top label label--sm"><span>Образец_02</span><span>540 GSM</span></div>
+          <div class="ph ads__thumb"><span class="ph__label">[фото образца 02]</span></div>
+          <h3 class="ads__title">Футболка классическая</h3>
+          <div class="ads__row"><span class="price">1450 ₽</span><a class="btn btn--small" href="#obrazets-02">Выбрать размер</a></div>
+        </div>
+        <div class="ads__item">
+          <div class="ads__top label label--sm"><span>Образец_03</span><span>540 GSM</span></div>
+          <div class="ph ads__thumb"><span class="ph__label">[фото образца 03]</span></div>
+          <h3 class="ads__title">Футболка классическая</h3>
+          <div class="ads__row"><span class="price">1450 ₽</span><a class="btn btn--small" href="#obrazets-03">Выбрать размер</a></div>
+        </div>
+      </aside>
+    </section>
+  </div>
+
+  <!-- Блок 5. Бегущая строка -->
+  <div class="ticker" aria-label="Бегущая строка">
+    <div class="ticker__track">
+      <p class="ticker__group">Каждая вещь есть возвращение утраченной архитектурной материи<span class="ticker__star" aria-hidden="true">★</span>Глобальная логистика и доставка<span class="ticker__star" aria-hidden="true">★</span>Контроль подлинности NFC-чип<span class="ticker__star" aria-hidden="true">★</span>Готов к диссекции<span class="ticker__star" aria-hidden="true">★</span></p>
+      <p class="ticker__group" aria-hidden="true">Каждая вещь есть возвращение утраченной архитектурной материи<span class="ticker__star">★</span>Глобальная логистика и доставка<span class="ticker__star">★</span>Контроль подлинности NFC-чип<span class="ticker__star">★</span>Готов к диссекции<span class="ticker__star">★</span></p>
+    </div>
+  </div>
+
+  <!-- Блок 6. Актуальный каталог -->
+  <section class="section" id="catalog" aria-labelledby="catalog-title">
+    <div class="wrap reveal">
+      <div class="rubric">
+        <h2 class="rubric__title" id="catalog-title">Актуальные вещи</h2>
+        <p class="rubric__aside label">Все размеры анатомически калиброваны · Валюта: RUB (₽)</p>
+      </div>
+      <div class="filter" role="group" aria-label="Фильтр по размеру">
+        <span class="filter__label label">Размер:</span>
+        <button class="filter__btn" type="button" data-filter="all" aria-pressed="true">Все</button>
+        <button class="filter__btn" type="button" data-filter="S" aria-pressed="false">S</button>
+        <button class="filter__btn" type="button" data-filter="M" aria-pressed="false">M</button>
+        <button class="filter__btn" type="button" data-filter="L" aria-pressed="false">L</button>
+        <button class="filter__btn" type="button" data-filter="XL" aria-pressed="false">XL</button>
+        <span class="filter__status label label--sm" id="filter-status" aria-live="polite">Образцов: 6</span>
+      </div>
+
+      <div class="catalog" id="catalog-grid">
+        <article class="card card--hero" id="obrazets-01" data-sold="">
+          <div class="card__meta"><span class="card__label">Образец_01 // 540 GSM</span><span class="tag">Готов к диссекции</span></div>
+          <div class="card__photo ph"><span class="ph__label">[фото образца 01]</span></div>
+          <div class="card__body">
+            <h3 class="card__title">Футболка классическая</h3>
+            <p class="card__desc">Хлопок 540 GSM, унисекс-крой. Основной образец коллекции «Великая Бездна».</p>
+            <dl class="card__specs">
+              <dt>Артикул</dt><dd>GA-2026</dd>
+              <dt>Полотно</dt><dd>Хлопок, 540 GSM</dd>
+              <dt>Крой</dt><dd>Унисекс</dd>
+              <dt>Подлинность</dt><dd>NFC-чип</dd>
+            </dl>
+            <p class="card__price">1450 ₽</p>
+            <div class="sizes" role="group" aria-label="Размер, образец 01"></div>
+            <p class="card__hint" aria-live="polite"></p>
+            <button class="btn btn--cart" type="button" data-add>В корзину</button>
+          </div>
+        </article>
+
+        <article class="card card--col" id="obrazets-02" data-sold="">
+          <div class="card__meta"><span class="card__label">Образец_02 // 540 GSM</span></div>
+          <div class="card__photo ph"><span class="ph__label">[фото образца 02]</span></div>
+          <div class="card__body">
+            <h3 class="card__title">Футболка классическая</h3>
+            <p class="card__desc">Хлопок 540 GSM, унисекс-крой.</p>
+            <p class="card__price">1450 ₽</p>
+            <div class="sizes" role="group" aria-label="Размер, образец 02"></div>
+            <p class="card__hint" aria-live="polite"></p>
+            <button class="btn btn--cart" type="button" data-add>В корзину</button>
+          </div>
+        </article>
+
+        <article class="card card--col" id="obrazets-03" data-sold="">
+          <div class="card__meta"><span class="card__label">Образец_03 // 540 GSM</span></div>
+          <div class="card__photo ph"><span class="ph__label">[фото образца 03]</span></div>
+          <div class="card__body">
+            <h3 class="card__title">Футболка классическая</h3>
+            <p class="card__desc">Хлопок 540 GSM, унисекс-крой.</p>
+            <p class="card__price">1450 ₽</p>
+            <div class="sizes" role="group" aria-label="Размер, образец 03"></div>
+            <p class="card__hint" aria-live="polite"></p>
+            <button class="btn btn--cart" type="button" data-add>В корзину</button>
+          </div>
+        </article>
+
+        <article class="card card--row card--sold" id="obrazets-04" data-sold="S XL">
+          <div class="card__meta"><span class="card__label">Образец_04 // 540 GSM</span><span class="tag">Последние</span></div>
+          <div class="card__photo ph"><span class="ph__label">[фото образца 04]</span></div>
+          <div class="card__body">
+            <h3 class="card__title">Футболка классическая</h3>
+            <p class="card__desc">Хлопок 540 GSM, унисекс-крой.</p>
+            <p class="card__price">1450 ₽</p>
+            <div class="sizes" role="group" aria-label="Размер, образец 04"></div>
+            <p class="card__hint" aria-live="polite"></p>
+            <button class="btn btn--cart" type="button" data-add>В корзину</button>
+          </div>
+        </article>
+
+        <article class="card card--row" id="obrazets-05" data-sold="">
+          <div class="card__meta"><span class="card__label">Образец_05 // 540 GSM</span></div>
+          <div class="card__photo ph"><span class="ph__label">[фото образца 05]</span></div>
+          <div class="card__body">
+            <h3 class="card__title">Футболка классическая</h3>
+            <p class="card__desc">Хлопок 540 GSM, унисекс-крой.</p>
+            <p class="card__price">1450 ₽</p>
+            <div class="sizes" role="group" aria-label="Размер, образец 05"></div>
+            <p class="card__hint" aria-live="polite"></p>
+            <button class="btn btn--cart" type="button" data-add>В корзину</button>
+          </div>
+        </article>
+
+        <article class="card card--row" id="obrazets-06" data-sold="S">
+          <div class="card__meta"><span class="card__label">Образец_06 // 540 GSM</span></div>
+          <div class="card__photo ph"><span class="ph__label">[фото образца 06]</span></div>
+          <div class="card__body">
+            <h3 class="card__title">Футболка классическая</h3>
+            <p class="card__desc">Хлопок 540 GSM, унисекс-крой.</p>
+            <p class="card__price">1450 ₽</p>
+            <div class="sizes" role="group" aria-label="Размер, образец 06"></div>
+            <p class="card__hint" aria-live="polite"></p>
+            <button class="btn btn--cart" type="button" data-add>В корзину</button>
+          </div>
+        </article>
+
+        <div class="catalog__empty" id="catalog-empty" hidden>
+          <p>Образцов размера <b id="empty-size">XL</b> в этом выпуске нет. Сбросьте фильтр или сверьтесь с таблицей калибровки.</p>
+          <button class="btn btn--small" type="button" data-filter-reset>Показать все</button>
+        </div>
+      </div>
+      <div class="catalog__foot">
+        <a class="link" href="#sizes">Таблица размеров</a>
+        <a class="link" href="#">Полный каталог</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 7. Архив коллекций -->
+  <section class="section section--alt" id="archive" aria-labelledby="archive-title">
+    <div class="wrap reveal">
+      <div class="rubric">
+        <h2 class="rubric__title" id="archive-title">Хроника изъятых коллекций</h2>
+        <p class="rubric__aside label">Закрытый фонд · 3 дела</p>
+        <p class="rubric__lead">Ранее деклассифицированные образцы, помещённые в закрытый фонд. Доступны исключительно для академической экспертизы.</p>
+      </div>
+      <div class="archive">
+        <article class="scrap scrap--a" style="--rot:-2.5deg">
+          <span class="scrap__paper" aria-hidden="true"></span>
+          <span class="tape" style="--rot:-14deg" aria-hidden="true"></span>
+          <p class="scrap__case label">Дело 01 // 2025</p>
+          <h3 class="scrap__title">Альбедо</h3>
+          <div class="scrap__photo ph ph--bw" style="--ar:4/3"><span class="ph__label">[фото коллекции Альбедо]</span></div>
+          <span class="stamp stamp--blue stamp--m scrap__stamp" data-stamp style="--rot:-8deg">Снято с продаж</span>
+          <div class="scrap__facts label label--sm"><span>ALB-2025</span><span>Серия № 04</span></div>
+          <p>Ультраплотное белое полотно. Первая стадия: очищение формы до конструкции.</p>
+          <span class="note scrap__note" aria-hidden="true">только экспертиза</span>
+        </article>
+        <article class="scrap scrap--b" style="--rot:1.8deg">
+          <span class="scrap__paper" aria-hidden="true"></span>
+          <span class="clip" aria-hidden="true"></span>
+          <p class="scrap__case label">Дело 02 // 2024</p>
+          <h3 class="scrap__title">Цитринитас</h3>
+          <div class="scrap__photo ph ph--bw" style="--ar:4/3"><span class="ph__label">[фото коллекции Цитринитас]</span></div>
+          <span class="stamp stamp--blue stamp--m scrap__stamp" data-stamp style="--rot:6deg">Снято с продаж</span>
+          <div class="scrap__facts label label--sm"><span>CIT-2024</span><span>Серия № 02</span></div>
+          <p>Кевларовый анорак и солнечное сырое полотно.</p>
+        </article>
+        <article class="scrap scrap--c" style="--rot:-1.2deg">
+          <span class="scrap__paper" aria-hidden="true"></span>
+          <span class="tape" style="--rot:18deg" aria-hidden="true"></span>
+          <p class="scrap__case label">Дело 03 // 2023</p>
+          <h3 class="scrap__title">Рубедо</h3>
+          <div class="scrap__photo ph ph--bw" style="--ar:4/3"><span class="ph__label">[фото коллекции Рубедо]</span></div>
+          <span class="stamp stamp--blue stamp--m scrap__stamp" data-stamp style="--rot:-4deg">Снято с продаж</span>
+          <div class="scrap__facts label label--sm"><span>RUB-2023</span><span>Серия № 01</span></div>
+          <p>Багровый оверкот с металлическими пряжками.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 8. Манифест -->
+  <section class="manifest" id="manifest" aria-labelledby="manifest-title">
+    <span class="manifest__ghost" aria-hidden="true">Ведётся наблюдение</span>
+    <div class="wrap manifest__inner reveal">
+      <p class="manifest__label">Диссекция материи // Манифест лаборатории</p>
+      <h2 class="manifest__quote" id="manifest-title">Каждая вещь есть возвращение утраченной архитектурной <span class="marker">материи.<svg class="draw" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 6C20 3 45 7 70 4S96 5 98 5"/></svg></span></h2>
+      <p class="manifest__sign">Мы отрицаем сезонную цикличность индустрии. Каждое изделие – это нумерованный хронологический артефакт, деконструированный и собранный заново по законам анатомического напряжения.</p>
+      <a class="btn btn--ghost" href="#">О бренде <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- Блок 9. Протокол заказа -->
+  <section class="section" id="protocol" aria-labelledby="protocol-title">
+    <div class="wrap reveal">
+      <div class="rubric">
+        <h2 class="rubric__title" id="protocol-title">Протокол заказа</h2>
+        <p class="rubric__aside label">4 стадии · от выбора до проверки</p>
+      </div>
+      <ol class="steps">
+        <li class="step">
+          <span class="step__num" style="--rot:-3deg" aria-hidden="true">01</span>
+          <h3 class="step__title"><span class="visually-hidden">Стадия 1. </span>Выбор образца</h3>
+          <p class="step__text">Откройте рубрику «Актуальные вещи». Все образцы – хлопок 540 GSM.</p>
+        </li>
+        <li class="step">
+          <span class="step__num" style="--rot:2deg" aria-hidden="true">02</span>
+          <h3 class="step__title"><span class="visually-hidden">Стадия 2. </span>Калибровка размера</h3>
+          <p class="step__text">Сверьте мерки в таблице ниже. Размеры S–XL, унисекс-крой.</p>
+        </li>
+        <li class="step">
+          <span class="step__num" style="--rot:-1deg" aria-hidden="true">03</span>
+          <h3 class="step__title"><span class="visually-hidden">Стадия 3. </span>Оформление заказа</h3>
+          <p class="step__text">Добавьте образец в корзину и укажите получателя. Оплата: [способы оплаты].</p>
+        </li>
+        <li class="step">
+          <span class="step__num" style="--rot:3deg" aria-hidden="true">04</span>
+          <h3 class="step__title"><span class="visually-hidden">Стадия 4. </span>Доставка и проверка</h3>
+          <p class="step__text">Срок: [срок доставки]. При получении проверьте подлинность по NFC-чипу.</p>
+        </li>
+      </ol>
+      <div class="steps__back">
+        <a class="note" href="#catalog">назад к объявлениям</a>
+        <svg class="steps__arrow draw" viewBox="0 0 120 56" aria-hidden="true"><path pathLength="1" d="M4 44C30 52 70 50 96 22M96 22l-14 2M96 22l1 14"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 10. Калибровка размеров -->
+  <section class="section section--alt" id="sizes" aria-labelledby="sizes-title">
+    <div class="wrap reveal">
+      <div class="rubric">
+        <h2 class="rubric__title" id="sizes-title">Калибровка размеров</h2>
+        <p class="rubric__aside label">Футболка классическая · мерки в см</p>
+      </div>
+      <div class="sizes-sec">
+        <table class="table">
+          <caption>Мерки уточняются. Значения появятся после калибровки.</caption>
+          <thead><tr><th scope="col">Размер</th><th scope="col">Длина</th><th scope="col">Ширина</th><th scope="col">Длина рукава</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">S</th><td>[–]</td><td>[–]</td><td>[–]</td></tr>
+            <tr><th scope="row">M</th><td>[–]</td><td>[–]</td><td>[–]</td></tr>
+            <tr><th scope="row">L</th><td>[–]</td><td>[–]</td><td>[–]</td></tr>
+            <tr><th scope="row">XL</th><td>[–]</td><td>[–]</td><td>[–]</td></tr>
+          </tbody>
+        </table>
+        <div class="sizes-aside">
+          <svg class="sizes-aside__arrow draw" viewBox="0 0 96 64" aria-hidden="true"><path pathLength="1" d="M92 10C60 2 26 14 10 48M10 48l2-14M10 48l13-5"/></svg>
+          <!-- Черновой текст голоса бренда, ждёт подтверждения клиента -->
+          <p class="note sizes-aside__note">если между размерами – бери больший</p>
+          <p class="sizes-aside__text">Крой унисекс. Ширина и длина рукава заданы с запасом под многослойность. Снимите мерки любимой футболки и сравните с таблицей.</p>
+          <a class="btn btn--primary" href="#catalog" data-pick-size>Подобрать размер</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 11. Реестр качества -->
+  <section class="section" id="registry" aria-labelledby="registry-title">
+    <div class="wrap reveal">
+      <h2 class="visually-hidden" id="registry-title">Реестр качества</h2>
+      <div class="registry">
+        <div class="registry__item">
+          <p class="label label--sm">Реестр № 01</p>
+          <span class="registry__fig">820<small> GSM</small></span>
+          <p class="registry__name">Плотность полотна</p>
+          <p class="registry__text">Верхняя граница плотности в линейке.</p>
+        </div>
+        <div class="registry__item">
+          <p class="label label--sm">Реестр № 02</p>
+          <span class="registry__fig">Ti / St</span>
+          <p class="registry__name">Фурнитура: титан и сталь</p>
+          <p class="registry__text">Металл вместо пластика в узлах нагрузки.</p>
+        </div>
+        <div class="registry__item">
+          <p class="label label--sm">Реестр № 03</p>
+          <span class="registry__fig">NFC</span>
+          <p class="registry__name">Контроль подлинности</p>
+          <p class="registry__text">Чип в изделии подтверждает происхождение.</p>
+        </div>
+        <div class="registry__item">
+          <p class="label label--sm">Реестр № 04</p>
+          <span class="registry__fig">GLB</span>
+          <p class="registry__name">Глобальная логистика</p>
+          <p class="registry__text">Доставка: [условия и сроки доставки].</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 12. Письма читателей -->
+  <section class="section section--alt" id="letters" aria-labelledby="letters-title">
+    <div class="wrap reveal">
+      <div class="rubric">
+        <h2 class="rubric__title" id="letters-title">Письма читателей</h2>
+        <p class="rubric__aside label">Рубрика заполняется письмами покупателей</p>
+      </div>
+      <div class="letters">
+        <article class="scrap scrap--d" style="--rot:-1.6deg">
+          <span class="scrap__paper" aria-hidden="true"></span>
+          <span class="tape" style="--rot:-20deg" aria-hidden="true"></span>
+          <p class="letter__date label label--sm">Письмо № 1 · [дата]</p>
+          <p class="letter__text">[текст отзыва клиента]</p>
+          <p class="letter__sign">[имя, город]</p>
+        </article>
+        <article class="scrap scrap--e" style="--rot:1.4deg">
+          <span class="scrap__paper" aria-hidden="true"></span>
+          <span class="tape" style="--rot:9deg" aria-hidden="true"></span>
+          <p class="letter__date label label--sm">Письмо № 2 · [дата]</p>
+          <p class="letter__text">[текст отзыва клиента]</p>
+          <p class="letter__sign">[имя, город]</p>
+          <span class="stamp stamp--blue stamp--m letter__stamp" data-stamp>Проверено</span>
+        </article>
+        <article class="scrap scrap--f" style="--rot:-.8deg">
+          <span class="scrap__paper" aria-hidden="true"></span>
+          <span class="tape" style="--rot:22deg" aria-hidden="true"></span>
+          <p class="letter__date label label--sm">Письмо № 3 · [дата]</p>
+          <p class="letter__text">[текст отзыва клиента]</p>
+          <p class="letter__sign">[имя, город]</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 13. Справочное бюро -->
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="wrap reveal faq-sec">
+      <div class="faq-sec__aside">
+        <div class="rubric"><h2 class="rubric__title" id="faq-title">Справочное бюро</h2></div>
+        <p>Ответы на частые запросы. Если вопроса нет в списке, напишите: [e-mail].</p>
+      </div>
+      <div class="faq" id="faq-list">
+        <div class="faq__item">
+          <h3><button class="faq__btn" type="button" aria-expanded="true" aria-controls="faq-1" id="faq-q1">Как выбрать размер?<span class="faq__mark" aria-hidden="true">–</span></button></h3>
+          <div class="faq__a" id="faq-1" role="region" aria-labelledby="faq-q1"><p>Сверьтесь с таблицей калибровки: крой унисекс, размеры S, M, L, XL. Если мерки попадают между двумя размерами, ориентируйтесь на пометку редакции рядом с таблицей.</p></div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-2" id="faq-q2">Сколько делается доставка?<span class="faq__mark" aria-hidden="true">+</span></button></h3>
+          <div class="faq__a" id="faq-2" role="region" aria-labelledby="faq-q2" hidden><p>[ответ бренда: срок доставки]</p></div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-3" id="faq-q3">Как проверить подлинность по NFC-чипу?<span class="faq__mark" aria-hidden="true">+</span></button></h3>
+          <div class="faq__a" id="faq-3" role="region" aria-labelledby="faq-q3" hidden><p>Каждое изделие несёт NFC-чип контроля подлинности. Включите NFC на смартфоне и поднесите его к метке изделия. [ответ бренда: что видит покупатель после сканирования]</p></div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-4" id="faq-q4">Как вернуть или обменять образец?<span class="faq__mark" aria-hidden="true">+</span></button></h3>
+          <div class="faq__a" id="faq-4" role="region" aria-labelledby="faq-q4" hidden><p>[ответ бренда]</p></div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-5" id="faq-q5">Какие способы оплаты?<span class="faq__mark" aria-hidden="true">+</span></button></h3>
+          <div class="faq__a" id="faq-5" role="region" aria-labelledby="faq-q5" hidden><p>[ответ бренда]</p></div>
+        </div>
+        <div class="faq__item">
+          <h3><button class="faq__btn" type="button" aria-expanded="false" aria-controls="faq-6" id="faq-q6">Когда выйдет следующая коллекция?<span class="faq__mark" aria-hidden="true">+</span></button></h3>
+          <div class="faq__a" id="faq-6" role="region" aria-labelledby="faq-q6" hidden><p>[ответ бренда]</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Блок 14а. Рассылка -->
+  <section class="section subscribe" id="subscribe" aria-labelledby="subscribe-title">
+    <div class="wrap subscribe__grid reveal">
+      <div>
+        <p class="label red-text">Рассылка // закрытый доступ</p>
+        <h2 class="subscribe__title" id="subscribe-title">Лабораторный диспетчер</h2>
+        <p class="subscribe__text">Оформите подписку на закрытые монографии, уведомления о выпуске экспериментальных текстильных прототипов и внезапных деклассификациях из архива.</p>
+      </div>
+      <form class="subscribe__form" id="subscribe-form" novalidate>
+        <div class="field" id="email-field">
+          <label class="field__label" for="email">Адрес электронной почты</label>
+          <div class="field__row">
+            <input class="field__input" id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@domain.ru" aria-describedby="email-msg">
+            <button class="btn btn--primary" type="submit">Подписаться</button>
+          </div>
+          <p class="field__msg" id="email-msg" aria-live="polite">Только для уведомлений лаборатории.</p>
+        </div>
+        <p class="subscribe__consent label label--sm">Нажимая «Подписаться», вы соглашаетесь с [ссылка на политику обработки персональных данных].</p>
+        <span class="stamp stamp--blue stamp--l subscribe__stamp" id="subscribe-stamp" data-stamp hidden>Принято</span>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- Блок 14б. Подвал -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <h2 class="footer__title">Реестры системы</h2>
+        <ul class="footer__list">
+          <li><a href="#">Полный каталог</a></li>
+          <li><a href="#">Индекс текстильной телеметрии</a></li>
+          <li><a href="#">Лабораторные условия</a></li>
+          <li><a href="#">Глобальная логистика и доставка</a></li>
+          <li><a href="#">Архивная консигнация</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="footer__title">Стандартизация</h2>
+        <ul class="footer__list">
+          <li><span>Плотность полотна <b>до 820 GSM</b></span></li>
+          <li><span>Фурнитура <b>титан и сталь</b></span></li>
+          <li><span>Стадия выпуска <b>Эдиция 04</b></span></li>
+          <li><span>Контроль подлинности <b>NFC-чип</b></span></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="footer__title">Контакты</h2>
+        <ul class="footer__list">
+          <li><a href="#">Телефон <b>[телефон]</b></a></li>
+          <li><a href="#">Почта <b>[e-mail]</b></a></li>
+          <li><span>Адрес <b>[адрес]</b></span></li>
+          <li><a href="#">Соцсети <b>[ссылка]</b></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom label label--sm">
+      <span>© 2026 ABDSHOP Научный регистр. Все права защищены.</span>
+      <span class="footer__status"><span class="red-text">Статус: штатный</span><span>Уровень безопасности: 0</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ADDED_MS = parseInt(getComputedStyle(root).getPropertyValue('--dur-added'), 10) || 1500;
+  var SIZES = ['S','M','L','XL'];
+
+  /* Блок 1: дата выпуска */
+  var d = document.getElementById('issue-date');
+  if (d) {
+    var now = new Date();
+    d.textContent = new Intl.DateTimeFormat('ru-RU', {day:'numeric', month:'long', year:'numeric'}).format(now).replace(/\s?г\.?$/, '');
+    d.setAttribute('datetime', now.toISOString().slice(0,10));
+  }
+
+  /* Блок 2: сжатие навигации */
+  var nav = document.getElementById('nav');
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function(){ nav.classList.toggle('nav--compact', window.scrollY > 80); ticking = false; });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* Появление блоков, штампов и пометок – один раз */
+  function stampNow(el){ el.classList.add('is-stamped'); }
+  var hasIO = 'IntersectionObserver' in window;
+  var io = hasIO ? new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (!e.isIntersecting) return;
+      var t = e.target;
+      if (t.classList.contains('reveal')) t.classList.add('is-visible');
+      if (t.hasAttribute('data-stamp')) stampNow(t);
+      if (t.classList.contains('draw')) t.classList.add('is-drawn');
+      io.unobserve(t);
+    });
+  }, {threshold:0.15, rootMargin:'0px 0px -5% 0px'}) : null;
+  document.querySelectorAll('.reveal, .stamp[data-stamp]:not([hidden]), .draw').forEach(function(el){
+    if (reduce || !io) {
+      el.classList.add('is-visible','is-stamped','is-drawn');
+    } else { io.observe(el); }
+  });
+
+  /* Корзина */
+  var cartCount = 0;
+  var countEl = document.getElementById('cart-count');
+  var cartBtn = document.getElementById('cart-btn');
+  var live = document.getElementById('cart-live');
+  function addToCart(title, size){
+    cartCount += 1;
+    countEl.textContent = cartCount;
+    cartBtn.setAttribute('aria-label', 'Корзина, образцов: ' + cartCount);
+    live.textContent = title + ', размер ' + size + ' – в корзине. Образцов в корзине: ' + cartCount;
+    if (!reduce) { cartBtn.classList.remove('is-bump'); void cartBtn.offsetWidth; cartBtn.classList.add('is-bump'); }
+  }
+
+  /* Карточки: размеры и «В корзину» */
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.catalog .card'));
+  cards.forEach(function(card){
+    var sold = (card.getAttribute('data-sold') || '').split(' ').filter(Boolean);
+    var group = card.querySelector('.sizes');
+    var hint = card.querySelector('.card__hint');
+    var addBtn = card.querySelector('[data-add]');
+    var title = card.querySelector('.card__title').textContent;
+    SIZES.forEach(function(s){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'sizes__btn'; b.textContent = s; b.setAttribute('data-size', s);
+      if (sold.indexOf(s) > -1) { b.disabled = true; b.setAttribute('aria-label', s + ', нет в наличии'); }
+      else { b.setAttribute('aria-pressed', 'false'); }
+      group.appendChild(b);
+    });
+    group.addEventListener('click', function(e){
+      var b = e.target.closest('.sizes__btn'); if (!b || b.disabled) return;
+      group.querySelectorAll('.sizes__btn[aria-pressed]').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      group.classList.remove('is-error'); hint.textContent = '';
+    });
+    addBtn.addEventListener('click', function(){
+      var sel = group.querySelector('.sizes__btn[aria-pressed="true"]');
+      if (!sel) {
+        hint.textContent = 'Сначала выберите размер.';
+        group.classList.remove('is-error'); void group.offsetWidth; group.classList.add('is-error');
+        var first = group.querySelector('.sizes__btn:not(:disabled)'); if (first) first.focus();
+        return;
+      }
+      addToCart(title, sel.textContent);
+      addBtn.textContent = 'Добавлено'; addBtn.classList.add('is-added');
+      clearTimeout(addBtn._t);
+      addBtn._t = setTimeout(function(){ addBtn.textContent = 'В корзину'; addBtn.classList.remove('is-added'); }, ADDED_MS);
+    });
+  });
+
+  /* Фильтр размеров */
+  var grid = document.getElementById('catalog-grid');
+  var empty = document.getElementById('catalog-empty');
+  var status = document.getElementById('filter-status');
+  var fBtns = document.querySelectorAll('[data-filter]');
+  function applyFilter(size){
+    var shown = 0;
+    fBtns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-filter') === size)); });
+    cards.forEach(function(card){
+      var sold = (card.getAttribute('data-sold') || '').split(' ');
+      var ok = size === 'all' || sold.indexOf(size) === -1;
+      card.hidden = !ok; if (ok) shown++;
+    });
+    grid.classList.toggle('is-filtered', size !== 'all');
+    empty.hidden = shown !== 0;
+    document.getElementById('empty-size').textContent = size;
+    status.textContent = size === 'all' ? 'Образцов: ' + shown : 'Размер ' + size + ': образцов ' + shown;
+  }
+  fBtns.forEach(function(b){ b.addEventListener('click', function(){ applyFilter(b.getAttribute('data-filter')); }); });
+  var reset = document.querySelector('[data-filter-reset]');
+  if (reset) reset.addEventListener('click', function(){ applyFilter('all'); });
+
+  /* «Подобрать размер» – к фильтру каталога */
+  var pick = document.querySelector('[data-pick-size]');
+  if (pick) pick.addEventListener('click', function(e){
+    e.preventDefault();
+    document.getElementById('catalog').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
+    setTimeout(function(){ fBtns[0].focus({preventScroll:true}); }, reduce ? 0 : 500);
+  });
+
+  /* Аккордеон */
+  document.querySelectorAll('.faq__btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      btn.setAttribute('aria-expanded', String(!open));
+      btn.querySelector('.faq__mark').textContent = open ? '+' : '–';
+      panel.hidden = open;
+      panel.classList.toggle('is-open', !open);
+    });
+  });
+
+  /* Форма подписки */
+  var form = document.getElementById('subscribe-form');
+  var field = document.getElementById('email-field');
+  var input = document.getElementById('email');
+  var msg = document.getElementById('email-msg');
+  var stamp = document.getElementById('subscribe-stamp');
+  var HINT = msg.textContent;
+  var RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  function validate(showEmpty){
+    var v = input.value.trim();
+    field.classList.remove('field--error','field--success');
+    if (!v) {
+      if (!showEmpty) { msg.textContent = HINT; input.removeAttribute('aria-invalid'); return false; }
+      return fail('Укажите адрес электронной почты.');
+    }
+    if (!RE.test(v)) return fail('Адрес не распознан. Проверьте формат: name@domain.ru');
+    input.removeAttribute('aria-invalid'); msg.textContent = HINT; return true;
+  }
+  function fail(text){
+    void field.offsetWidth; field.classList.add('field--error');
+    input.setAttribute('aria-invalid', 'true'); msg.textContent = text; return false;
+  }
+  input.addEventListener('blur', function(){ if (input.value.trim()) validate(false); });
+  input.addEventListener('input', function(){ if (field.classList.contains('field--error')) validate(false); });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!validate(true)) { input.focus(); return; }
+    field.classList.add('field--success');
+    msg.textContent = 'Адрес внесён в реестр. Письма приходят с выходом новых материалов.';
+    stamp.hidden = false; stamp.classList.remove('is-stamped'); void stamp.offsetWidth; stamp.classList.add('is-stamped');
+    form.reset();
+  });
+})();
+</script>
+</body>
+</html>
