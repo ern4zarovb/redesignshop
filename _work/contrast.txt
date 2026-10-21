@@ -1,0 +1,5 @@
+paper ink=14.35 ink-soft=8.95 red=3.96 red-dark=5.72 blue=6.91 blue-dark=9.63
+paper2 ink=12.79 ink-soft=7.98 red=3.53 red-dark=5.10 blue=6.16 blue-dark=8.58
+paper3 ink=16.15 ink-soft=10.08 red=4.45 red-dark=6.43 blue=7.78 blue-dark=10.84
+kraft ink=11.05 ink-soft=6.89 red=3.05 red-dark=4.40 blue=5.32 blue-dark=7.41
+white/red 5.16 paperink/red 4.66 paperink/ink 16.9 red/ink 3.63 paperink/red-dark 6.73

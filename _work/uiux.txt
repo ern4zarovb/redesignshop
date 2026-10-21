@@ -1,0 +1,153 @@
+## UI Pro Max Search Results
+**Domain:** typography | **Query:** editorial newspaper serif condensed
+**Source:** typography.csv | **Found:** 4 results
+
+### Result 1
+- **Font Pairing Name:** Sports/Fitness
+- **Category:** Sans + Sans
+- **Heading Font:** Barlow Condensed
+- **Body Font:** Barlow
+- **Mood/Style Keywords:** sports, fitness, athletic, energetic, condensed, action
+- **Best For:** Sports, fitness, gyms, athletic brands, competition
+- **Google Fonts URL:** https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap
+- **CSS Import:** @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap');
+- **Tailwind Config:** fontFamily: { display: ['Barlow Condensed', 'sans-serif'], body: ['Barlow', 'sans-serif'] }
+- **Notes:** Condensed for impact headlines. Regular Barlow for body.
+
+### Result 2
+- **Font Pairing Name:** Minimalist Monochrome Editorial
+- **Category:** Serif + Serif + Mono (Triple Stack)
+- **Heading Font:** Playfair Display
+- **Body Font:** Source Serif 4
+- **Mood/Style Keywords:** monochrome, editorial, austere, typographic, pocket manifesto, luxury, high contrast, brutalist mobile
+- **Best For:** Luxury fashion mobile apps, editorial publications, digital exhibitions, portfolio apps, high-contrast e-reader aesthetics
+- **Google Fonts URL:** https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300
+- **CSS Import:** @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+- **Tailwind Config:** fontFamily: { display: ['Playfair Display', 'serif'], body: ['Source Serif 4', 'serif'], mono: ['JetBrains Mono', 'monospace'] }
+- **Notes:** Triple stack: Playfair Display 900 tracking-tighter leading-[0.9] for heroes (text-5xl–text-6xl breaks words graphically). Source Serif 4 300–600 for body legibility. JetBrains Mono 400–500 uppercase tracking-widest for tags/dates/labels. NO UI sans-serif — 100% serif/mono.
+
+### Result 3
+- **Font Pairing Name:** Editorial Classic
+- **Category:** Serif + Serif
+- **Heading Font:** Cormorant Garamond
+- **Body Font:** Libre Baskerville
+- **Mood/Style Keywords:** editorial, classic, literary, traditional, refined, bookish
+- **Best For:** Publishing, blogs, news sites, literary magazines, book covers
+- **Google Fonts URL:** https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap
+- **CSS Import:** @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap');
+- **Tailwind Config:** fontFamily: { heading: ['Cormorant Garamond', 'serif'], body: ['Libre Baskerville', 'serif'] }
+- **Notes:** All-serif pairing for traditional editorial feel.
+
+### Result 4
+- **Font Pairing Name:** News Editorial
+- **Category:** Serif + Sans
+- **Heading Font:** Newsreader
+- **Body Font:** Roboto
+- **Mood/Style Keywords:** news, editorial, journalism, trustworthy, readable, informative
+- **Best For:** News sites, blogs, magazines, journalism, content-heavy sites
+- **Google Fonts URL:** https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap
+- **CSS Import:** @import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+- **Tailwind Config:** fontFamily: { serif: ['Newsreader', 'serif'], sans: ['Roboto', 'sans-serif'] }
+- **Notes:** Newsreader designed for long-form reading. Roboto for UI.
+
+## UI Pro Max Search Results
+**Domain:** ux | **Query:** form inline validation error
+**Source:** ux-guidelines.csv | **Found:** 3 results
+
+### Result 1
+- **Category:** Forms / Accessibility
+- **Issue:** Focusable Error Summary
+- **Platform:** Web
+- **Description:** An error summary for failed validation complements inline field errors and must be easy to find by keyboard and screen reader users
+- **Do:** Place it at the top of the form; move focus to its heading or container after failed submit; link each item to its invalid field; retain inline errors
+- **Don't:** Replace inline errors with a visual-only summary or move focus on every blur
+- **Code Example Good:** <div role="alert" tabindex="-1" aria-labelledby="error-title"><h2 id="error-title">There is a problem</h2><a href="#email">Enter an email address</a></div>
+- **Code Example Bad:** Toast only with no field links or focus target
+- **Severity:** High
+
+### Result 2
+- **Category:** Forms
+- **Issue:** Inline Validation
+- **Platform:** All
+- **Description:** Validate as user types or on blur
+- **Do:** Validate on blur for most fields
+- **Don't:** Validate only on submit
+- **Code Example Good:** onBlur validation
+- **Code Example Bad:** Submit-only validation
+- **Severity:** Medium
+
+### Result 3
+- **Category:** Forms
+- **Issue:** Error Placement
+- **Platform:** All
+- **Description:** Each invalid field needs an inline error connected to that field
+- **Do:** Show a specific error below the input and reference it with aria-describedby
+- **Don't:** Show only a top-level error without identifying each invalid field
+- **Code Example Good:** <input aria-describedby="email-error"><p id="email-error">Enter an email address</p>
+- **Code Example Bad:** Red border or summary only
+- **Severity:** High
+
+## UI Pro Max Search Results
+**Domain:** ux | **Query:** reduced motion animation timing
+**Source:** ux-guidelines.csv | **Found:** 3 results
+
+### Result 1
+- **Category:** Animation
+- **Issue:** Reduced Motion
+- **Platform:** All
+- **Description:** Respect user's motion preferences
+- **Do:** Check prefers-reduced-motion media query
+- **Don't:** Ignore accessibility motion settings
+- **Code Example Good:** @media (prefers-reduced-motion: reduce)
+- **Code Example Bad:** No motion query check
+- **Severity:** High
+
+### Result 2
+- **Category:** Animation
+- **Issue:** Duration Timing
+- **Platform:** All
+- **Description:** Motion duration depends on distance complexity platform and user context
+- **Do:** Use shared motion tokens and test that feedback stays responsive
+- **Don't:** Present 150-300ms or any cutoff as a universal requirement
+- **Code Example Good:** transition-colors duration-200
+- **Code Example Bad:** One duration copied to every transition
+- **Severity:** Medium
+
+### Result 3
+- **Category:** Animation
+- **Issue:** Excessive Motion
+- **Platform:** All
+- **Description:** Too many animations cause distraction and motion sickness
+- **Do:** Animate 1-2 key elements per view maximum
+- **Don't:** Animate everything that moves
+- **Code Example Good:** Single hero animation
+- **Code Example Bad:** animate-bounce on 5+ elements
+- **Severity:** High
+
+## UI Pro Max Search Results
+**Domain:** style | **Query:** streetwear fashion ecommerce brutalism
+**Source:** styles.csv | **Found:** 1 results
+
+### Result 1
+- **Style ID:** brutalism
+- **Style Category:** Brutalism
+- **Aliases:** 
+- **Status:** active
+- **Parent Style ID:** 
+- **Preferred Mode:** auto
+- **Type:** General
+- **Keywords:** Raw, unpolished, stark, high contrast, plain text, default fonts, visible borders, asymmetric, anti-design
+- **Primary Colors:** Primary: Red #FF0000, Blue #0000FF, Yellow #FFFF00, Black #000000, White #FFFFFF
+- **Effects & Animation:** No smooth transitions (instant), sharp corners (0px), bold typography (700+), visible grid, large blocks
+- **Best For:** Design portfolios, artistic projects, counter-culture brands, editorial/media sites, tech blogs
+- **Light Mode ✓:** supported
+- **Dark Mode ✓:** supported
+- **Performance:** cost:low|drivers:none
+- **Accessibility:** risk:low|requires:contrast-text-4.5,keyboard,visible-focus,reduced-motion
+- **Framework Compatibility:** tailwind|bootstrap
+- **Complexity:** Low
+- **AI Prompt Keywords:** Create a brutalist design with raw, unpolished, stark aesthetic. Use pure primary colors (red, blue, yellow), black & white, no smooth transitions (instant), sharp corners, bold large typography, visible grid lines, default system fonts, intentional 'broken' design elements.
+- **CSS/Technical Keywords:** border-radius: 0px, transition: none or 0s, font-family: system-ui or monospace, font-weight: 700+, border: visible 2-4px, colors: #FF0000, #0000FF, #FFFF00, #000000, #FFFFFF
+- **Implementation Checklist:** ☐ No border-radius (0px), ☐ No transitions (instant), ☐ Bold typography (700+), ☐ Pure primary colors used, ☐ Visible grid/borders, ☐ Asymmetric layout intentional
+- **Design System Variables:** --border-radius: 0px, --transition-duration: 0s, --font-weight: 700-900, --colors: primary only, --border-style: visible, --grid-visible: true
+
